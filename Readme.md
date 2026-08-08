@@ -1,7 +1,3 @@
-Bilkul. Aaj ke progress ke according README ko update karna chahiye. **Important correction:** tumne **LLM Fundamentals complete nahi kiye hain**; abhi roughly 80% complete hai. Saath hi **AI Interview Coach mini-project** bhi add karna chahiye.
-
-Neeche **updated complete README** hai. Isko apne root `README.md` se replace kar do.
-
 ````markdown
 # 🤖 Agentic AI & LangGraph Learning Journey
 
