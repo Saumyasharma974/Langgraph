@@ -1,8 +1,13 @@
+Bilkul. Aaj ke progress ke according README ko update karna chahiye. **Important correction:** tumne **LLM Fundamentals complete nahi kiye hain**; abhi roughly 80% complete hai. Saath hi **AI Interview Coach mini-project** bhi add karna chahiye.
+
+Neeche **updated complete README** hai. Isko apne root `README.md` se replace kar do.
+
+````markdown
 # 🤖 Agentic AI & LangGraph Learning Journey
 
-A practical, step-by-step repository documenting my journey of learning **Agentic AI, LangGraph, LangChain, and Multi-Agent Systems using Python**.
+A practical, step-by-step repository documenting my journey of learning **Agentic AI, LLMs, LangChain, LangGraph, and Multi-Agent Systems using Python**.
 
-The goal of this repository is not just to learn frameworks, but to understand the core concepts behind AI agents and gradually build **production-ready multi-agent applications**.
+The goal of this repository is not just to learn frameworks, but to understand the engineering concepts behind AI agents and gradually build **reliable, stateful, and production-ready AI systems**.
 
 ---
 
@@ -10,19 +15,21 @@ The goal of this repository is not just to learn frameworks, but to understand t
 
 Through this repository, I aim to understand:
 
-* Python fundamentals required for Agentic AI
-* LLM fundamentals
-* Structured LLM outputs
-* Tool / Function Calling
-* LangChain fundamentals
-* LangGraph workflows
-* State management
-* Conditional routing
-* Agent memory
-* Human-in-the-loop workflows
-* RAG and Agentic RAG
-* Multi-Agent architectures
-* Production-ready AI agent systems
+- Python fundamentals required for Agentic AI
+- LLM fundamentals
+- Prompt engineering
+- LLM APIs
+- Structured LLM outputs
+- Tool / Function Calling
+- LangChain fundamentals
+- LangGraph workflows
+- State management
+- Conditional routing
+- Agent memory
+- Human-in-the-loop workflows
+- RAG and Agentic RAG
+- Multi-Agent architectures
+- Production-ready AI agent systems
 
 ---
 
@@ -33,9 +40,7 @@ Python for Agentic AI
         ↓
 LLM Fundamentals
         ↓
-LLM APIs
-        ↓
-Prompting & Messages
+Prompt Engineering
         ↓
 Structured Output
         ↓
@@ -53,14 +58,14 @@ RAG
         ↓
 Multi-Agent Systems
         ↓
-Production Project
-```
+Production AI Systems
+````
 
 ---
 
 # 🐍 Chapter 01 — Python for Agentic AI
 
-The first phase focuses only on the Python concepts required to understand and build AI agent systems.
+The first phase focuses on the Python concepts required to understand and build AI agent systems.
 
 ## Topics Covered
 
@@ -89,6 +94,13 @@ The first phase focuses only on the Python concepts required to understand and b
 * `async` / `await`
 * `asyncio`
 * Concurrent Operations with `asyncio.gather()`
+
+### Status
+
+```text
+Python for Agentic AI
+██████████ 100% ✅
+```
 
 ---
 
@@ -133,9 +145,9 @@ This provides the foundation for understanding state-based workflows in LangGrap
 
 # 🔀 Conditional Agent Workflows
 
-I also explored how agents can make decisions based on the current state.
+I explored how agents can make decisions based on the current state.
 
-Example workflow:
+Example:
 
 ```text
 START
@@ -153,7 +165,7 @@ END       Developer
               └── Retry
 ```
 
-This introduced concepts such as:
+This introduced:
 
 * Conditional routing
 * Retry workflows
@@ -226,7 +238,7 @@ This provides:
 * Structured data
 * Type-safe outputs
 
-Later, this concept will be used for **structured LLM outputs and agent routing decisions**.
+This concept was later used with an actual LLM to generate **structured AI decisions**.
 
 ---
 
@@ -241,7 +253,7 @@ AI systems interact with external services such as:
 
 These services can fail.
 
-To handle failures safely, I explored:
+I explored:
 
 ```python
 try:
@@ -251,7 +263,7 @@ except Exception as error:
     print(error)
 ```
 
-Instead of crashing the entire workflow, agents can store errors in state and decide whether to:
+Instead of crashing the entire workflow, an agent system can decide whether to:
 
 ```text
 Retry
@@ -274,7 +286,7 @@ from dotenv import load_dotenv
 load_dotenv()
 ```
 
-Example `.env`:
+Example:
 
 ```text
 AI_API_KEY=your_api_key_here
@@ -338,7 +350,216 @@ Conceptually:
 
 ---
 
-# 🗂️ Repository Structure
+# 🧠 Chapter 02 — LLM Fundamentals
+
+The second phase focuses on understanding how LLM-powered applications work before moving into LangChain and LangGraph.
+
+## Topics Completed
+
+* What is an LLM?
+* LLM vs Agent
+* Tokens
+* Context
+* Context Window
+* Prompt Basics
+* System Messages
+* Human Messages
+* AI Messages
+* Conversation History
+* Temperature
+* Hallucinations
+* Groq API
+* `ChatGroq`
+* `invoke()`
+* Tool Calling basics
+* `@tool`
+* `bind_tools()`
+* `tool_calls`
+* Tool arguments
+* Tool execution
+* Multiple Tools
+* Tool Registry
+* `ToolMessage`
+* Complete Tool Calling Loop
+* Pydantic Structured Output
+* `Literal`
+* `Field`
+* `with_structured_output()`
+
+### Current Status
+
+```text
+LLM Fundamentals
+████████░░ ~80% 🟡
+```
+
+---
+
+# 🔧 Tool Calling
+
+I explored how an LLM can decide when an external tool is required.
+
+Basic architecture:
+
+```text
+User
+ ↓
+LLM
+ ↓
+Tool Call
+ ↓
+Tool
+ ↓
+Tool Result
+ ↓
+ToolMessage
+ ↓
+LLM
+ ↓
+Final Answer
+```
+
+Example concepts explored:
+
+```python
+response.tool_calls
+```
+
+```python
+tool_call["name"]
+```
+
+```python
+tool_call["args"]
+```
+
+```python
+calculator.invoke(...)
+```
+
+This provides the foundation for understanding agent-tool interaction.
+
+---
+
+# 📋 Structured LLM Output
+
+Instead of receiving unpredictable natural-language output:
+
+```text
+"The developer agent would probably be suitable..."
+```
+
+I learned how to define a structured schema:
+
+```python
+class TaskDecision(BaseModel):
+
+    agent: Literal[
+        "researcher",
+        "developer",
+        "reviewer"
+    ]
+
+    reason: str
+
+    priority: int = Field(
+        ge=1,
+        le=5
+    )
+```
+
+And connect it with an LLM:
+
+```python
+structured_llm = llm.with_structured_output(
+    TaskDecision
+)
+```
+
+The LLM can then return a validated structured object.
+
+---
+
+# 🛠️ Mini Project — AI Interview Coach
+
+To practically apply the LLM concepts learned so far, I built an **AI Interview Coach**.
+
+The application conducts a technical interview using Groq and evaluates candidate answers using Pydantic structured output.
+
+## Features
+
+* Interview type selection
+* DSA interviews
+* Backend interviews
+* Python interviews
+* AI/ML interviews
+* Full Stack interviews
+* AI-generated interview questions
+* Candidate answer input
+* Structured answer evaluation
+* Score from 1–10
+* Strength identification
+* Weakness identification
+* Improvement suggestions
+* Adaptive question difficulty
+* Conversation history
+* Multiple interview questions
+* Score tracking
+* Final interview report
+* Average score
+* Overall performance assessment
+* Error handling
+
+## Architecture
+
+```text
+                User
+                 ↓
+        Select Interview Type
+                 ↓
+              Groq LLM
+                 ↓
+        Generate Question
+                 ↓
+        Candidate Answer
+                 ↓
+          Structured LLM
+                 ↓
+        Pydantic Validation
+                 ↓
+        Interview Feedback
+                 ↓
+       ┌─────────┼─────────┐
+       ↓         ↓         ↓
+   Strengths  Weaknesses  Score
+       │         │         │
+       └─────────┼─────────┘
+                 ↓
+        Adaptive Next Question
+                 ↓
+            Final Report
+```
+
+## Technologies Used
+
+```text
+Python
+Groq
+LangChain
+Pydantic
+python-dotenv
+```
+
+### Project Status
+
+```text
+AI Interview Coach
+██████████ 100% ✅
+```
+
+---
+
+# 📂 Current Repository Structure
 
 ```text
 agentic-ai-langgraph-learning/
@@ -354,7 +575,6 @@ agentic-ai-langgraph-learning/
 │   ├── 08_async_await.py
 │   │
 │   └── 07_modules_and_env/
-│       │
 │       ├── agents/
 │       │   ├── __init__.py
 │       │   ├── researcher.py
@@ -364,6 +584,27 @@ agentic-ai-langgraph-learning/
 │       ├── .gitignore
 │       └── main.py
 │
+├── 02_llm_fundamentals/
+│   │
+│   ├── 01_basic_llm_call.py
+│   ├── 02_messages.py
+│   ├── 03_tool_calling.py
+│   ├── 04_multiple_tools.py
+│   ├── 05_complete_tool_loop.py
+│   ├── 06_structured_output.py
+│   └── README.md
+│
+├── 03_ai_interview_coach/
+│   │
+│   ├── main.py
+│   ├── config.py
+│   ├── models/
+│   ├── services/
+│   ├── .env.example
+│   ├── .gitignore
+│   ├── requirements.txt
+│   └── README.md
+│
 ├── README.md
 └── requirements.txt
 ```
@@ -372,86 +613,51 @@ agentic-ai-langgraph-learning/
 
 ---
 
-# 🛠️ Setup
-
-Clone the repository:
-
-```bash
-git clone <your-repository-url>
-```
-
-Move into the project:
-
-```bash
-cd agentic-ai-langgraph-learning
-```
-
-Create a virtual environment:
-
-```bash
-python -m venv .venv
-```
-
-### Windows
-
-```bash
-.venv\Scripts\activate
-```
-
-### macOS / Linux
-
-```bash
-source .venv/bin/activate
-```
-
-Install dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-
----
-
-# 📦 Current Dependencies
-
-```text
-pydantic
-python-dotenv
-```
-
-More dependencies will be added as the repository progresses into LangChain and LangGraph.
-
----
-
 # 🗺️ Upcoming Chapters
 
-## Chapter 02 — LLM Fundamentals
+## Chapter 02 — LLM Fundamentals — Remaining
 
-* What is an LLM?
-* Tokens
-* Context Window
-* Temperature
-* System Messages
-* User Messages
-* AI Messages
-* Prompting
-* LLM API Calls
-* Structured Outputs
-* Tool Calling
+* Prompt Engineering
+* Zero-shot Prompting
+* Few-shot Prompting
+* Role Prompting
+* Context Engineering
+* Streaming
+* Async LLM Calls
+* Error Handling
+* Retry Strategies
+* Model Configuration
+* Token Usage
+* LLM Cost Optimization
+* LLM Evaluation
+* LLM Safety
+* Prompt Injection Basics
+* LLM Limitations
 
-## Chapter 03 — LangChain
+---
 
-* Models
+# Chapter 03 — LangChain
+
+After completing LLM Fundamentals:
+
+* Chat Models
 * Messages
 * Prompt Templates
+* `ChatPromptTemplate`
+* `MessagesPlaceholder`
 * Structured Output
 * Tools
 * `@tool`
 * Tool Calling
+* Runnables
+* LCEL
+* Chains
 
-## Chapter 04 — LangGraph
+---
 
-* StateGraph
+# Chapter 04 — LangGraph
+
+* `StateGraph`
 * State
 * Nodes
 * Edges
@@ -460,18 +666,32 @@ More dependencies will be added as the repository progresses into LangChain and 
 * `compile()`
 * `invoke()`
 * Conditional Edges
-* Cycles and Retry Workflows
+* Cycles
+* Retry Workflows
+* State Updates
+* Reducers
+* `MessagesState`
+* `ToolNode`
+* Agent Loops
 
-## Chapter 05 — Agents
+---
+
+# Chapter 05 — Agents
 
 * Agent Architecture
 * ReAct Pattern
+* Tool Selection
 * ToolNode
 * Agent Loops
 * Multiple Tools
-* Error Handling
+* Tool Errors
+* Retry Strategies
+* Agent Termination
+* Human Approval
 
-## Chapter 06 — Memory
+---
+
+# Chapter 06 — Memory
 
 * Short-Term Memory
 * MessagesState
@@ -479,17 +699,26 @@ More dependencies will be added as the repository progresses into LangChain and 
 * Checkpointers
 * Conversation Threads
 * Persistent State
+* Long-Term Memory
 
-## Chapter 07 — RAG & Agentic RAG
+---
 
+# Chapter 07 — RAG & Agentic RAG
+
+* Documents
+* Chunking
 * Embeddings
 * Vector Databases
 * Retrieval
 * RAG
 * Retrieval Tools
 * Agentic RAG
+* Query Transformation
+* Retrieval Evaluation
 
-## Chapter 08 — Multi-Agent Systems
+---
+
+# Chapter 08 — Multi-Agent Systems
 
 * Specialized Agents
 * Shared State
@@ -499,8 +728,11 @@ More dependencies will be added as the repository progresses into LangChain and 
 * Subgraphs
 * Hierarchical Agent Systems
 * Parallel Agent Execution
+* Agent Collaboration
 
-## Chapter 09 — Production
+---
+
+# Chapter 09 — Production AI Systems
 
 * FastAPI Integration
 * Streaming
@@ -512,7 +744,27 @@ More dependencies will be added as the repository progresses into LangChain and 
 * Retry Strategies
 * Cost Control
 * Security
+* Authentication
 * Deployment
+* Production Architecture
+
+---
+
+# 📈 Current Progress
+
+```text
+Python for Agentic AI       ██████████ 100% ✅
+LLM Fundamentals            ████████░░  ~80% 🟡
+AI Interview Coach          ██████████ 100% ✅
+
+LangChain                   ░░░░░░░░░░   0% ⏳
+LangGraph                   ░░░░░░░░░░   0% ⏳
+Agents & Tools              ░░░░░░░░░░   0% ⏳
+Memory                      ░░░░░░░░░░   0% ⏳
+RAG                         ░░░░░░░░░░   0% ⏳
+Multi-Agent Systems         ░░░░░░░░░░   0% ⏳
+Production                  ░░░░░░░░░░   0% ⏳
+```
 
 ---
 
@@ -540,27 +792,11 @@ Maintain memory
 Return the final result
 ```
 
-Rather than treating AI agents as simple LLM wrappers, this repository focuses on understanding the engineering concepts required to build **reliable, stateful and scalable agentic workflows**.
+Rather than treating AI agents as simple LLM wrappers, this repository focuses on understanding the engineering concepts required to build **reliable, stateful, and scalable agentic workflows**.
 
 ---
 
-## 📈 Current Progress
-
-```text
-Python for Agentic AI       ██████████ 100% ✅
-LLM Fundamentals            ░░░░░░░░░░ Upcoming
-LangChain                   ░░░░░░░░░░ Upcoming
-LangGraph                   ░░░░░░░░░░ Upcoming
-Agents & Tools              ░░░░░░░░░░ Upcoming
-Memory                      ░░░░░░░░░░ Upcoming
-RAG                         ░░░░░░░░░░ Upcoming
-Multi-Agent Systems         ░░░░░░░░░░ Upcoming
-Production                  ░░░░░░░░░░ Upcoming
-```
-
----
-
-## 👨‍💻 Author
+# 👨‍💻 Author
 
 **Saumya Sharma**
 
@@ -571,3 +807,5 @@ Learning and building in:
 ---
 
 ⭐ If you find this learning journey useful, feel free to star the repository and follow along as I continue building more advanced Agentic AI systems.
+
+````
