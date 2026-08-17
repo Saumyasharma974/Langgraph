@@ -1,0 +1,7 @@
+JWT is used for authentication.
+
+JWT stands for JSON Web Token.
+
+A JWT contains three parts: header, payload, and signature.
+
+The server can use JWT to verify the identity of a user.
